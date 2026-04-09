@@ -1,0 +1,18 @@
+export const S = {
+  user: null,
+  posts: [],
+  confessions: [],
+  following: new Set([1,3,5]),
+  notifications: [],
+  giftsOwned: {},
+  giftsReceived: {},
+  filterState: { music: [], nature: [] },
+  activeChat: null,
+  callTimer: null,
+  callSecs: 0,
+  pendingGift: null,
+  mediaType: 'photo',
+  pendingMediaDataURL: null,
+  pendingMediaIsVideo: false,
+  rizzFromOthers: 0,
+};
