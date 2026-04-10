@@ -1,6 +1,6 @@
 // ── GU-Rizz API Client ──────────────────────────────────
 const BASE = (typeof __API_BASE__ !== 'undefined' ? __API_BASE__ : '') + '/api';
-
+ 
 async function http(method, endpoint, body, isFormData) {
   const opts = { method, credentials: 'include', headers: {} };
   const token = localStorage.getItem('gu_access_token');
@@ -18,7 +18,7 @@ async function http(method, endpoint, body, isFormData) {
   if (!data.success) throw new Error(data.message || 'Request failed');
   return data;
 }
-
+ 
 async function _refreshToken() {
   try {
     const data = await http('POST', '/auth/refresh-token');
@@ -26,13 +26,13 @@ async function _refreshToken() {
   } catch (e) {}
   return false;
 }
-
+ 
 const _get    = function(ep)     { return http('GET',    ep); };
 const _post   = function(ep, b)  { return http('POST',   ep, b); };
 const _put    = function(ep, b)  { return http('PUT',    ep, b); };
 const _del    = function(ep)     { return http('DELETE', ep); };
 const _upload = function(ep, fd) { return http('POST',   ep, fd, true); };
-
+ 
 window.API = {
   Auth: {
     signup:             function(b)      { return _post('/auth/signup', b); },
@@ -54,10 +54,14 @@ window.API = {
     updateSettings:function(b)        { return _put('/users/settings', b); },
     block:         function(uid)      { return _post('/users/block/' + uid); },
     heartbeat:     function(mins)     { return _post('/users/heartbeat', { minutesSpent: mins }); },
+    // Issue 7 — followers/following list
+    getFollowers:  function(uid, p)   { return _get('/users/' + uid + '/followers?page=' + (p||1)); },
+    getFollowing:  function(uid, p)   { return _get('/users/' + uid + '/following?page=' + (p||1)); },
   },
   Posts: {
     getFeed:     function(type, page) { return _get('/posts?type=' + (type||'recent') + '&page=' + (page||1)); },
     getUserPosts:function(uid, page)  { return _get('/posts/user/' + uid + '?page=' + (page||1)); },
+    getPost:     function(id)         { return _get('/posts/' + id); }, // Issue 5
     create:      function(caption, file) {
       var fd = new FormData();
       fd.append('caption', caption || '');
@@ -95,5 +99,5 @@ window.API = {
     markRead: function(ids)  { return _post('/notifications/read', ids ? { ids: ids } : {}); },
   },
 };
-
+ 
 console.log('API client ready');
