@@ -1252,6 +1252,80 @@ html, body {
   }
 }
 
+/* ── Spinner for auth buttons (Issue 1) ── */
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── User Profile Modal (Issues 2,3) ── */
+#user-profile-modal .modal{width:520px;max-width:96vw;}
+.upm-cover{height:120px;background:linear-gradient(135deg,#0d0005 0%,#2e000e 100%);border-radius:16px 16px 0 0;position:relative;overflow:hidden;}
+.upm-cover img{width:100%;height:100%;object-fit:cover;}
+.upm-body{padding:0 1.4rem 1.4rem;background:var(--bg2);}
+.upm-av{width:80px;height:80px;border-radius:50%;border:3px solid var(--bg2);margin-top:-40px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:28px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.5);flex-shrink:0;}
+.upm-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.upm-top{display:flex;align-items:flex-end;gap:1rem;margin-bottom:0.8rem;}
+.upm-name{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;}
+.upm-handle{color:var(--text2);font-size:13px;margin-top:2px;}
+.upm-bio{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:1rem;}
+.upm-stats{display:flex;gap:1.6rem;margin-bottom:1rem;}
+.upm-stat{text-align:center;cursor:pointer;transition:var(--transition);}
+.upm-stat:hover{color:var(--cr2);}
+.upm-stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;}
+.upm-stat-label{font-size:11px;color:var(--text2);}
+.upm-actions{display:flex;gap:8px;margin-bottom:1rem;}
+.upm-follow-btn{flex:1;padding:10px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;border:none;transition:var(--transition);}
+.upm-follow-btn.not-following{background:var(--cr);color:#fff;box-shadow:0 2px 12px var(--cr-glow);}
+.upm-follow-btn.not-following:hover{background:var(--cr2);}
+.upm-follow-btn.is-following{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.upm-follow-btn.is-following:hover{border-color:var(--cr);color:var(--text);}
+.upm-msg-btn{flex:1;padding:10px;border-radius:12px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;transition:var(--transition);}
+.upm-msg-btn:hover{border-color:var(--cr);color:var(--cr2);}
+.upm-posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;border-radius:0 0 12px 12px;overflow:hidden;}
+.upm-post-thumb{aspect-ratio:1;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;overflow:hidden;position:relative;}
+.upm-post-thumb img,.upm-post-thumb video{width:100%;height:100%;object-fit:cover;}
+.upm-post-thumb:hover .thumb-overlay{opacity:1;}
+.upm-loading{padding:2rem;text-align:center;color:var(--text3);font-size:14px;}
+
+/* ── Post Detail Modal (Issue 5) ── */
+#post-detail-modal .modal{width:760px;max-width:96vw;padding:0;overflow:hidden;}
+.pdm-wrap{display:grid;grid-template-columns:1fr 360px;}
+@media(max-width:640px){.pdm-wrap{grid-template-columns:1fr;}}
+.pdm-media{background:#000;display:flex;align-items:center;justify-content:center;min-height:300px;max-height:520px;overflow:hidden;}
+.pdm-media img{width:100%;height:100%;object-fit:contain;max-height:520px;}
+.pdm-media video{width:100%;max-height:520px;object-fit:contain;}
+.pdm-media-placeholder{font-size:80px;color:var(--text3);}
+.pdm-right{display:flex;flex-direction:column;background:var(--bg2);}
+.pdm-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);}
+.pdm-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;overflow:hidden;cursor:pointer;}
+.pdm-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.pdm-username{font-weight:600;font-size:14px;cursor:pointer;}
+.pdm-username:hover{color:var(--cr2);}
+.pdm-time{font-size:11px;color:var(--text3);}
+.pdm-caption{padding:12px 16px;font-size:14px;line-height:1.5;border-bottom:1px solid var(--border);color:var(--text2);}
+.pdm-caption strong{color:var(--cr2);}
+.pdm-comments{flex:1;overflow-y:auto;padding:12px 16px;max-height:220px;}
+.pdm-stats{padding:8px 16px;font-size:13px;color:var(--text2);border-top:1px solid var(--border);}
+.pdm-actions{display:flex;gap:4px;padding:8px 16px;border-top:1px solid var(--border);}
+.pdm-action{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;border-radius:10px;cursor:pointer;color:var(--text2);font-size:13px;border:none;background:transparent;transition:var(--transition);font-family:'Outfit',sans-serif;}
+.pdm-action:hover{background:var(--bg3);color:var(--text);}
+.pdm-action.liked{color:var(--cr2);}
+.pdm-action svg{width:17px;height:17px;}
+.pdm-comment-inp-row{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--border);}
+.pdm-comment-inp{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:8px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;}
+.pdm-comment-inp:focus{border-color:var(--cr);}
+.pdm-close{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;}
+
+/* ── Followers/Following Modal (Issue 7) ── */
+#follow-list-modal .modal{width:440px;max-width:96vw;}
+.flm-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.flm-item:last-child{border-bottom:none;}
+.flm-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;overflow:hidden;cursor:pointer;flex-shrink:0;}
+.flm-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.flm-info{flex:1;min-width:0;}
+.flm-name{font-weight:600;font-size:14px;cursor:pointer;}
+.flm-name:hover{color:var(--cr2);}
+.flm-handle{font-size:12px;color:var(--text3);}
+.flm-actions{display:flex;gap:6px;flex-shrink:0;}
+
 </style>
 </head>
 <body>
@@ -1430,6 +1504,68 @@ html, body {
       <button class="modal-cancel" onclick="closeModal('post-modal')">Cancel</button>
       <button class="modal-confirm" onclick="submitPost()" id="submit-post-btn">Post 🚀</button>
     </div>
+  </div>
+</div>
+
+<!-- ═══ USER PROFILE MODAL (Issues 2 & 3) ═══ -->
+<div class="modal-overlay" id="user-profile-modal">
+  <div class="modal" style="padding:0;overflow:hidden;border-radius:20px;">
+    <div class="upm-cover" id="upm-cover-area"></div>
+    <div class="upm-body">
+      <div class="upm-top">
+        <div class="upm-av" id="upm-av"></div>
+        <div style="flex:1;">
+          <div class="upm-name" id="upm-name">—</div>
+          <div class="upm-handle" id="upm-handle">@—</div>
+        </div>
+        <button class="modal-cancel" style="margin:0;width:auto;padding:8px 14px;" onclick="closeModal('user-profile-modal')">✕</button>
+      </div>
+      <div class="upm-bio" id="upm-bio"></div>
+      <div class="upm-stats">
+        <div class="upm-stat" onclick="openFollowListModal('followers',_upmUserId)">
+          <div class="upm-stat-num" id="upm-followers">0</div>
+          <div class="upm-stat-label">Followers</div>
+        </div>
+        <div class="upm-stat" onclick="openFollowListModal('following',_upmUserId)">
+          <div class="upm-stat-num" id="upm-following">0</div>
+          <div class="upm-stat-label">Following</div>
+        </div>
+        <div class="upm-stat">
+          <div class="upm-stat-num" id="upm-posts">0</div>
+          <div class="upm-stat-label">Posts</div>
+        </div>
+        <div class="upm-stat">
+          <div class="upm-stat-num" id="upm-rizz" style="color:var(--cr2);">0</div>
+          <div class="upm-stat-label">Rizz ⚡</div>
+        </div>
+      </div>
+      <div class="upm-actions">
+        <button class="upm-follow-btn not-following" id="upm-follow-btn" onclick="upmToggleFollow()">Follow</button>
+        <button class="upm-msg-btn" onclick="upmStartChat()">💬 Message</button>
+      </div>
+      <div class="upm-posts-grid" id="upm-posts-grid">
+        <div class="upm-loading">Loading posts…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST DETAIL MODAL (Issue 5) ═══ -->
+<div class="modal-overlay" id="post-detail-modal" onclick="if(event.target===this)closeModal('post-detail-modal')">
+  <div class="modal" style="padding:0;position:relative;">
+    <button class="pdm-close" onclick="closeModal('post-detail-modal')">✕</button>
+    <div class="pdm-wrap" id="pdm-content"></div>
+  </div>
+</div>
+
+<!-- ═══ FOLLOWERS / FOLLOWING MODAL (Issue 7) ═══ -->
+<div class="modal-overlay" id="follow-list-modal">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <h3 id="flm-title" style="margin:0;">Followers</h3>
+      <button class="modal-cancel" style="width:auto;padding:8px 14px;" onclick="closeModal('follow-list-modal')">✕</button>
+    </div>
+    <div id="flm-list" style="max-height:420px;overflow-y:auto;"></div>
   </div>
 </div>
 
@@ -1807,8 +1943,8 @@ html, body {
           </div>
           <div class="profile-stats-row">
             <div class="ps"><div class="ps-num" id="prof-posts">0</div><div class="ps-label">Posts</div></div>
-            <div class="ps"><div class="ps-num" id="prof-followers">0</div><div class="ps-label">Followers</div></div>
-            <div class="ps"><div class="ps-num" id="prof-following">0</div><div class="ps-label">Following</div></div>
+            <div class="ps" style="cursor:pointer;" onclick="openFollowListModal('followers',S.user&&(S.user._id||S.user.id))"><div class="ps-num" id="prof-followers">0</div><div class="ps-label">Followers</div></div>
+            <div class="ps" style="cursor:pointer;" onclick="openFollowListModal('following',S.user&&(S.user._id||S.user.id))"><div class="ps-num" id="prof-following">0</div><div class="ps-label">Following</div></div>
             <div class="ps"><div class="ps-num crimson" id="prof-rizz">0</div><div class="ps-label">Rizz ⚡</div></div>
           </div>
           <div class="profile-bio-text" id="prof-bio">GU Student | Living the campus life 🎓</div>
@@ -2039,7 +2175,7 @@ async function doLogin() {
   const password   = document.getElementById('li-p').value;
   if (!identifier||!password){showToast('Fill all fields','error');return;}
   const btn = document.getElementById('login-btn');
-  btn.disabled=true; btn.textContent='Logging in...';
+  btn.disabled=true; btn.innerHTML='<span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;"></span>Logging in…</span>';
   try {
     if (window.API) {
       const res = await window.API.Auth.login(identifier, password);
@@ -2145,7 +2281,12 @@ function bootUser(user, requiresVibeProfile) {
         S.notifications = (res.data.notifications||[]).map(n => {
           const diff = Date.now()-new Date(n.createdAt).getTime();
           const t = diff<60000?'just now':diff<3600000?Math.floor(diff/60000)+'m ago':Math.floor(diff/3600000)+'h ago';
-          return {id:n._id,icon:n.icon,bg:n.bgColor,msg:n.message,time:t,unread:!n.isRead};
+          // ISSUE 6: store postId, actorUsername, type for deep-link routing
+          return {
+            id:n._id, icon:n.icon, bg:n.bgColor, msg:n.message, time:t, unread:!n.isRead,
+            type:n.type, postId:n.postId, chatId:n.chatId,
+            actorUsername:n.actorUsername||(n.actorId&&n.actorId.username)||null,
+          };
         });
         renderNotifBadge();
       }).catch(()=>{});
@@ -2220,7 +2361,7 @@ function renderNotifList() {
   const list=document.getElementById('notif-list'); if(!list)return;
   if(!(S.notifications||[]).length){list.innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3);font-size:14px;">No notifications yet 🔔</div>';return;}
   list.innerHTML=(S.notifications||[]).map(n=>`
-    <div class="notif-item ${n.unread?'unread':''}" onclick="markNotifRead(${JSON.stringify(n.id)})">
+    <div class="notif-item ${n.unread?'unread':''}" onclick="handleNotifClick(${JSON.stringify(n.id)},${JSON.stringify(n.type||'')},${JSON.stringify(n.postId||'')},${JSON.stringify(n.chatId||'')},${JSON.stringify(n.actorUsername||'')})" style="cursor:pointer;">
       <div class="notif-icon" style="background:${n.bg||'rgba(192,19,42,0.15)'}">${n.icon||'🔔'}</div>
       <div class="notif-text"><div class="notif-msg">${n.msg}</div><div class="notif-time">${n.time}</div></div>
       ${n.unread?'<div class="notif-unread-dot"></div>':''}
@@ -2231,6 +2372,28 @@ function markNotifRead(id) {
   if(n)n.unread=false;
   renderNotifBadge();renderNotifList();
   if(window.API) window.API.Notifications.markRead([String(id)]).catch(()=>{});
+}
+
+// ISSUE 6 — Notification deep-link routing
+function handleNotifClick(id, type, postId, chatId, actorUsername) {
+  markNotifRead(id);
+  // Close notification panel
+  document.getElementById('notif-panel')?.classList.remove('open');
+
+  const postTypes = ['like','comment','share','confession_like','confession_comment'];
+  const profileTypes = ['follow','gift','rizz_milestone'];
+
+  if (postTypes.includes(type) && postId) {
+    // Open the specific post in detail view
+    openPostDetail(postId);
+  } else if (type === 'message' && chatId) {
+    // Navigate to chat and open that conversation
+    nav('chat');
+    setTimeout(() => openChat(chatId, null), 300);
+  } else if (profileTypes.includes(type) && actorUsername) {
+    // Open that user's profile
+    openUserProfile(actorUsername);
+  }
 }
 function clearNotifs() {
   (S.notifications||[]).forEach(n=>n.unread=false);
@@ -2371,9 +2534,10 @@ function buildPostHTML(p,delay=0) {
   const imgUrl=(poster&&poster.profileImageURL)?poster.profileImageURL:null;
   const postId=p._id||p.id;
   const isOwn=String((poster&&poster._id)||poster)===String(me._id||me.id);
+  // ISSUE 2: clicking poster avatar/name opens their profile
   const avHTML=imgUrl
-    ?`<div class="post-av"><img src="${imgUrl}" /></div>`
-    :`<div class="post-av" style="background:${color}">${initials(name)}</div>`;
+    ?`<div class="post-av" onclick="event.stopPropagation();openUserProfile('${handle}')" style="cursor:pointer;"><img src="${imgUrl}" /></div>`
+    :`<div class="post-av" style="background:${color};cursor:pointer;" onclick="event.stopPropagation();openUserProfile('${handle}')">${initials(name)}</div>`;
   let mediaHTML='';
   if(p.mediaURL&&!p.isVideo) mediaHTML=`<div class="post-media"><img src="${p.mediaURL}" alt="post" loading="lazy"/></div>`;
   else if(p.mediaURL&&p.isVideo) mediaHTML=`<div class="post-media"><video src="${p.mediaURL}" controls preload="none"></video></div>`;
@@ -2384,7 +2548,7 @@ function buildPostHTML(p,delay=0) {
   }).join('');
   return `<div class="post-card" id="post-${postId}" style="animation-delay:${delay}s">
     <div class="post-head">${avHTML}
-      <div class="post-meta"><div class="post-name">${name}</div><div class="post-info">@${handle} · ${timeAgo(p.createdAt||Date.now())}</div></div>
+      <div class="post-meta"><div class="post-name" style="cursor:pointer;" onclick="event.stopPropagation();openUserProfile('${handle}')">${name}</div><div class="post-info">@${handle} · ${timeAgo(p.createdAt||Date.now())}</div></div>
       ${isOwn?`<button onclick="deletePost('${postId}')" style="background:none;border:none;color:var(--text3);cursor:pointer;padding:4px 8px;font-size:18px;">🗑</button>`:''}
     </div>${mediaHTML}
     ${p.caption?`<div class="post-caption"><strong>@${handle}</strong> ${p.caption}</div>`:''}
@@ -2590,6 +2754,10 @@ function toggleSuggestedFollow(uid,btn) {
       btn.className='follow-btn '+(res.data.isFollowing?'following':'');
       showToast(res.data.isFollowing?'Following! 🙌':'Unfollowed','success');
       renderMiniProfile();
+      // ISSUE 4: refresh chat inbox so newly followed user appears
+      if(res.data.isFollowing) {
+        window.API.Chat.getInbox().then(r=>{S.chatInbox=r.data.chats||[];_drawChatList();}).catch(()=>{});
+      }
     }).catch(err=>showToast(err.message,'error'));
 }
 
@@ -2612,7 +2780,8 @@ function _buildUserCards(users, container) {
       ?`<img src="${u.profileImageURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>`
       :initials(u.name||'?');
     const hobbyTags=(u.hobbies||[]).slice(0,3).map(h=>`<span class="uc-tag">${h}</span>`).join('');
-    return `<div class="user-card">
+    // ISSUE 2: entire card + avatar + name are clickable → open profile modal
+    return `<div class="user-card" style="cursor:pointer;" onclick="openUserProfile('${u.username||''}')">
       <div class="uc-av" style="background:${u.color||'#888'}">${av}</div>
       <div class="uc-name">${u.name||''}</div>
       <div class="uc-sub">@${u.username||''}</div>
@@ -2625,7 +2794,7 @@ function _buildUserCards(users, container) {
         ${hobbyTags}
       </div>
       ${u.rizzPoints?`<div class="uc-rizz">⚡ ${u.rizzPoints.toLocaleString()} Rizz</div>`:''}
-      <button class="follow-btn ${u.isFollowing?'following':''}" onclick="toggleFollowExplore('${u._id}',this)">${u.isFollowing?'Following':'Follow'}</button>
+      <button class="follow-btn ${u.isFollowing?'following':''}" onclick="event.stopPropagation();toggleFollowExplore('${u._id}',this)">${u.isFollowing?'Following':'Follow'}</button>
     </div>`;
   }).join('')+'</div>';
 }
@@ -2670,6 +2839,10 @@ function toggleFollowExplore(uid,btn) {
     .then(res=>{
       btn.textContent=res.data.isFollowing?'Following':'Follow';
       btn.className='follow-btn '+(res.data.isFollowing?'following':'');
+      // ISSUE 4: on follow, backend auto-creates chat; refresh inbox so they appear
+      if(res.data.isFollowing) {
+        window.API.Chat.getInbox().then(r=>{S.chatInbox=r.data.chats||[];}).catch(()=>{});
+      }
     }).catch(err=>showToast(err.message,'error'));
 }
 
@@ -3189,7 +3362,7 @@ function renderProfilePosts(){
       const posts=res.data.posts||[];
       if(!posts.length){grid.innerHTML=Array(6).fill(0).map(()=>'<div class="profile-post-thumb" style="opacity:0.15;cursor:default;">📷</div>').join('');return;}
       grid.innerHTML=posts.map(p=>`
-        <div class="profile-post-thumb">
+        <div class="profile-post-thumb" onclick="openPostDetail('${p._id||p.id}')">
           ${p.mediaURL&&!p.isVideo?`<img src="${p.mediaURL}"/>`:p.mediaURL&&p.isVideo?`<video src="${p.mediaURL}" muted></video>`:(p.emoji||'📸')}
           <div class="thumb-overlay">❤️ ${p.likesCount||0} &nbsp; 💬 ${(p.comments||[]).length}</div>
         </div>`).join('');
@@ -3390,6 +3563,305 @@ function initFCM(){
     }
   }, {passive: false});
 })();
+
+
+// ════════════════════════════════════════════
+//  ISSUE 2 & 3 — USER PROFILE MODAL
+//  Opens any user's Instagram-style profile.
+//  Works from explore cards, post avatars, notif clicks.
+// ════════════════════════════════════════════
+let _upmUserId = null;
+let _upmIsFollowing = false;
+
+function openUserProfile(username) {
+  if (!username || !window.API) return;
+  // If it's the logged-in user's own profile, open the about section instead
+  if (S.user && (username === S.user.username || username === S.user._id || username === S.user.id)) {
+    nav('about'); return;
+  }
+  openModal('user-profile-modal');
+  // Reset UI to loading state
+  document.getElementById('upm-av').innerHTML = '<span style="font-size:28px;color:var(--text3);">…</span>';
+  document.getElementById('upm-name').textContent = 'Loading…';
+  document.getElementById('upm-handle').textContent = '';
+  document.getElementById('upm-bio').textContent = '';
+  document.getElementById('upm-followers').textContent = '—';
+  document.getElementById('upm-following').textContent = '—';
+  document.getElementById('upm-posts').textContent = '—';
+  document.getElementById('upm-rizz').textContent = '—';
+  document.getElementById('upm-posts-grid').innerHTML = '<div class="upm-loading">Loading…</div>';
+
+  window.API.Users.getProfile(username)
+    .then(res => {
+      const u = res.data.user;
+      _upmUserId = u._id || u.id;
+      _upmIsFollowing = res.data.isFollowing || false;
+
+      // Cover
+      const coverEl = document.getElementById('upm-cover-area');
+      if (u.coverImageURL) {
+        coverEl.innerHTML = `<img src="${u.coverImageURL}" style="width:100%;height:100%;object-fit:cover;"/>`;
+      } else {
+        coverEl.style.background = `linear-gradient(135deg, #0d0005 0%, ${u.color||'#2e000e'} 100%)`;
+        coverEl.innerHTML = '';
+      }
+
+      // Avatar
+      const avEl = document.getElementById('upm-av');
+      avEl.style.background = u.profileImageURL ? 'transparent' : (u.color || '#c0132a');
+      avEl.innerHTML = u.profileImageURL
+        ? `<img src="${u.profileImageURL}"/>`
+        : initials(u.name || '?');
+
+      // Info
+      document.getElementById('upm-name').textContent    = u.name || '';
+      document.getElementById('upm-handle').textContent  = '@' + (u.username || '');
+      document.getElementById('upm-bio').textContent     = u.bio || '';
+      document.getElementById('upm-followers').textContent = (u.followersCount || 0).toLocaleString();
+      document.getElementById('upm-following').textContent = (u.followingCount || 0).toLocaleString();
+      document.getElementById('upm-posts').textContent   = (u.postsCount || 0).toLocaleString();
+      document.getElementById('upm-rizz').textContent    = (u.rizzPoints || 0).toLocaleString();
+
+      // Follow button
+      _updateUpmFollowBtn();
+
+      // Posts grid
+      return window.API.Posts.getUserPosts(_upmUserId, 1);
+    })
+    .then(res => {
+      const posts = res.data.posts || [];
+      const grid = document.getElementById('upm-posts-grid');
+      if (!posts.length) {
+        grid.innerHTML = '<div class="upm-loading" style="grid-column:1/-1;">No posts yet 📸</div>';
+        return;
+      }
+      grid.innerHTML = posts.slice(0, 9).map(p => `
+        <div class="upm-post-thumb" onclick="openPostDetail('${p._id||p.id}')">
+          ${p.mediaURL && !p.isVideo ? `<img src="${p.mediaURL}" loading="lazy"/>` : p.mediaURL && p.isVideo ? `<video src="${p.mediaURL}" muted></video>` : `<span style="font-size:28px;">${p.emoji||'📸'}</span>`}
+          <div class="thumb-overlay">❤️ ${p.likesCount||0}</div>
+        </div>`).join('');
+    })
+    .catch(err => {
+      showToast(err.message || 'Could not load profile', 'error');
+      closeModal('user-profile-modal');
+    });
+}
+
+function _updateUpmFollowBtn() {
+  const btn = document.getElementById('upm-follow-btn');
+  if (!btn) return;
+  if (_upmIsFollowing) {
+    btn.textContent = 'Following';
+    btn.className = 'upm-follow-btn is-following';
+  } else {
+    btn.textContent = 'Follow';
+    btn.className = 'upm-follow-btn not-following';
+  }
+}
+
+function upmToggleFollow() {
+  if (!_upmUserId || !window.API) return;
+  window.API.Users.follow(_upmUserId)
+    .then(res => {
+      _upmIsFollowing = res.data.isFollowing;
+      _updateUpmFollowBtn();
+      // Update follower count optimistically
+      const fEl = document.getElementById('upm-followers');
+      if (fEl) {
+        const current = parseInt(fEl.textContent.replace(/,/g,'')) || 0;
+        fEl.textContent = (_upmIsFollowing ? current + 1 : Math.max(0, current - 1)).toLocaleString();
+      }
+      showToast(_upmIsFollowing ? 'Following! 🙌' : 'Unfollowed', 'success');
+      // ISSUE 4: refresh chat inbox so they appear
+      if (_upmIsFollowing && window.API) {
+        window.API.Chat.getInbox().then(r => { S.chatInbox = r.data.chats || []; _drawChatList(); }).catch(() => {});
+      }
+    })
+    .catch(err => showToast(err.message, 'error'));
+}
+
+// ISSUE 3 — Message button inside user profile modal
+function upmStartChat() {
+  if (!_upmUserId) return;
+  closeModal('user-profile-modal');
+  nav('chat');
+  // Give chat section time to render, then open the DM
+  setTimeout(() => openChat(null, _upmUserId), 250);
+}
+
+// ════════════════════════════════════════════
+//  ISSUE 5 — FULL-SCREEN POST DETAIL MODAL
+//  Opens any post in an Instagram-style overlay.
+// ════════════════════════════════════════════
+let _pdmPostId = null;
+
+function openPostDetail(postId) {
+  if (!postId || !window.API) return;
+  _pdmPostId = postId;
+  openModal('post-detail-modal');
+  document.getElementById('pdm-content').innerHTML = '<div style="padding:3rem;text-align:center;color:var(--text3);grid-column:1/-1;">Loading post…</div>';
+
+  window.API.Posts.getPost(postId)
+    .then(res => {
+      const p = res.data.post;
+      const poster = p.userId || {};
+      const name   = poster.name     || S.user?.name    || 'User';
+      const handle = poster.username || S.user?.username || 'user';
+      const color  = poster.color    || S.user?.color   || '#c0132a';
+      const imgUrl = poster.profileImageURL || null;
+      const postId = p._id || p.id;
+
+      let mediaHTML = '';
+      if (p.mediaURL && !p.isVideo) mediaHTML = `<img src="${p.mediaURL}" loading="lazy"/>`;
+      else if (p.mediaURL && p.isVideo) mediaHTML = `<video src="${p.mediaURL}" controls autoplay muted style="width:100%;"></video>`;
+      else mediaHTML = `<div class="pdm-media-placeholder">${p.emoji || '📸'}</div>`;
+
+      const avHTML = imgUrl
+        ? `<div class="pdm-av" onclick="closeModal('post-detail-modal');openUserProfile('${handle}')"><img src="${imgUrl}"/></div>`
+        : `<div class="pdm-av" style="background:${color};" onclick="closeModal('post-detail-modal');openUserProfile('${handle}')">${initials(name)}</div>`;
+
+      const cmtHTML = (p.comments || []).slice(-20).map(c => {
+        const cu = c.userId || {}; const cc = cu.color || '#888'; const ci = cu.profileImageURL || null;
+        return `<div class="comment-item">
+          <div class="comment-av" style="background:${ci?'transparent':cc}">${ci?`<img src="${ci}"/>`:initials((cu.name||'?'))}</div>
+          <div class="comment-bubble"><span class="comment-who">@${cu.username||'user'}</span>${c.text}</div>
+        </div>`;
+      }).join('');
+
+      document.getElementById('pdm-content').innerHTML = `
+        <div class="pdm-media">${mediaHTML}</div>
+        <div class="pdm-right">
+          <div class="pdm-head">
+            ${avHTML}
+            <div>
+              <div class="pdm-username" onclick="closeModal('post-detail-modal');openUserProfile('${handle}')">${name}</div>
+              <div class="pdm-time">@${handle} · ${timeAgo(p.createdAt||Date.now())}</div>
+            </div>
+          </div>
+          ${p.caption ? `<div class="pdm-caption"><strong>@${handle}</strong> ${p.caption}</div>` : ''}
+          <div class="pdm-comments" id="pdm-cmts">${cmtHTML||'<div style="color:var(--text3);font-size:13px;">No comments yet. Be first! 💬</div>'}</div>
+          <div class="pdm-stats" id="pdm-stats">${p.likesCount||0} likes · ${(p.comments||[]).length} comments</div>
+          <div class="pdm-actions">
+            <button class="pdm-action ${p.liked?'liked':''}" id="pdm-like-btn" onclick="pdmLike('${postId}')">
+              <svg viewBox="0 0 24 24" fill="${p.liked?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              Like
+            </button>
+            <button class="pdm-action" onclick="pdmShare('${postId}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share
+            </button>
+          </div>
+          <div class="pdm-comment-inp-row">
+            <input class="pdm-comment-inp" id="pdm-cinp" placeholder="Add a comment…" onkeydown="if(event.key==='Enter')pdmComment('${postId}')"/>
+            <button class="comment-send" onclick="pdmComment('${postId}')"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+          </div>
+        </div>`;
+    })
+    .catch(err => {
+      document.getElementById('pdm-content').innerHTML = `<div style="padding:3rem;text-align:center;color:var(--text3);">Could not load post</div>`;
+    });
+}
+
+function pdmLike(postId) {
+  if (!window.API) return;
+  window.API.Posts.like(postId).then(res => {
+    const btn = document.getElementById('pdm-like-btn');
+    if (btn) {
+      btn.className = 'pdm-action ' + (res.data.liked ? 'liked' : '');
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', res.data.liked ? 'currentColor' : 'none');
+    }
+    const stats = document.getElementById('pdm-stats');
+    if (stats) stats.textContent = `${res.data.likesCount||0} likes`;
+    // also update feed post if visible
+    const p = S.posts.find(x => (x._id||x.id) === postId);
+    if (p) { p.liked = res.data.liked; p.likesCount = res.data.likesCount; }
+  }).catch(err => showToast(err.message, 'error'));
+}
+
+function pdmComment(postId) {
+  const inp = document.getElementById('pdm-cinp');
+  const text = inp?.value.trim(); if (!text) return;
+  if (!window.API) return;
+  window.API.Posts.comment(postId, text).then(res => {
+    inp.value = '';
+    const list = document.getElementById('pdm-cmts');
+    const u = S.user;
+    const avH = u.profileImageURL ? `<img src="${u.profileImageURL}"/>` : initials(u.name||'?');
+    if (list) {
+      list.insertAdjacentHTML('beforeend', `<div class="comment-item">
+        <div class="comment-av" style="background:${u.profileImageURL?'transparent':(u.color||'#c0132a')}">${avH}</div>
+        <div class="comment-bubble"><span class="comment-who">@${u.username||'you'}</span>${text}</div>
+      </div>`);
+      list.scrollTop = list.scrollHeight;
+    }
+  }).catch(err => showToast(err.message, 'error'));
+}
+
+function pdmShare(postId) {
+  if (!window.API) return;
+  window.API.Posts.share(postId).then(() => showToast('🔁 Post shared!', 'success')).catch(() => {});
+}
+
+// ════════════════════════════════════════════
+//  ISSUE 7 — FOLLOWERS / FOLLOWING MODAL
+//  Works for own profile AND other users' profiles (via user-profile-modal)
+// ════════════════════════════════════════════
+
+function openFollowListModal(type, userId) {
+  if (!userId || !window.API) return;
+  const title = type === 'followers' ? 'Followers' : 'Following';
+  document.getElementById('flm-title').textContent = title;
+  document.getElementById('flm-list').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text3);">Loading…</div>';
+  openModal('follow-list-modal');
+
+  const apiCall = type === 'followers'
+    ? window.API.Users.getFollowers(userId)
+    : window.API.Users.getFollowing(userId);
+
+  apiCall.then(res => {
+    const list = document.getElementById('flm-list');
+    const users = type === 'followers' ? (res.data.followers || []) : (res.data.following || []);
+
+    if (!users.length) {
+      list.innerHTML = `<div style="padding:2rem;text-align:center;color:var(--text3);">No ${title.toLowerCase()} yet</div>`;
+      return;
+    }
+
+    list.innerHTML = users.map(u => {
+      const av = u.profileImageURL
+        ? `<img src="${u.profileImageURL}"/>`
+        : initials(u.name || '?');
+      const isMe = S.user && (String(u._id) === String(S.user._id || S.user.id));
+      return `<div class="flm-item">
+        <div class="flm-av" style="background:${u.profileImageURL?'transparent':(u.color||'#888')}" onclick="closeModal('follow-list-modal');openUserProfile('${u.username||''}')">${av}</div>
+        <div class="flm-info">
+          <div class="flm-name" onclick="closeModal('follow-list-modal');openUserProfile('${u.username||''}')">${u.name||''}</div>
+          <div class="flm-handle">@${u.username||''} ${u.course?'· '+u.course:''}</div>
+        </div>
+        <div class="flm-actions">
+          ${!isMe ? `<button class="follow-btn ${u.isFollowing?'following':''}" onclick="flmToggleFollow('${u._id}',this)">${u.isFollowing?'Following':'Follow'}</button>` : ''}
+          ${!isMe ? `<button class="icon-btn" title="Message" onclick="closeModal('follow-list-modal');nav('chat');setTimeout(()=>openChat(null,'${u._id}'),250)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }).catch(err => {
+    document.getElementById('flm-list').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text3);">Could not load list</div>';
+  });
+}
+
+function flmToggleFollow(uid, btn) {
+  if (!window.API) return;
+  window.API.Users.follow(uid)
+    .then(res => {
+      btn.textContent = res.data.isFollowing ? 'Following' : 'Follow';
+      btn.className = 'follow-btn ' + (res.data.isFollowing ? 'following' : '');
+      if (res.data.isFollowing) {
+        window.API.Chat.getInbox().then(r => { S.chatInbox = r.data.chats || []; _drawChatList(); }).catch(() => {});
+      }
+    }).catch(err => showToast(err.message, 'error'));
+}
+
 // Close notif panel on outside click
 document.addEventListener('click',e=>{
   if(!e.target.closest('.notif-btn')&&!e.target.closest('.notif-panel'))
