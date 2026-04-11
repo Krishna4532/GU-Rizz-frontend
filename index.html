@@ -3004,9 +3004,18 @@ function openChat(chatId,userId) {
   // Bind real-time socket messages for this chat
   if(window.SOCKET&&window.SOCKET.get()){
     const s=window.SOCKET.get();
+    // FIX 2: Join the socket room so backend io.to('chat:chatId') can reach us.
+    // The backend only delivers to sockets that have called socket.join('chat:<id>').
+    // Without this, io.to(`chat:${chatId}`) delivers to nobody and the echo is lost.
+    s.emit('chat:join', chatId);
+
     s.off('chat:message');
     s.on('chat:message',msg=>{
-      if(msg.chatId!==chatId)return;
+      // FIX 1: Use String() coercion on both sides.
+      // msg.chatId arrives from the backend as a Mongoose ObjectId (not a plain string).
+      // Strict !== between an ObjectId and a string is always true even when they
+      // represent the same value, so without String() every message was silently dropped.
+      if(String(msg.chatId)!==String(chatId))return;
       const container=document.getElementById('chat-msgs-'+chatId);if(!container)return;
       const isMe=String(msg.senderId?._id||msg.senderId)===String(S.user?._id);
       const sender=isMe?S.user:other;
@@ -3017,7 +3026,7 @@ function openChat(chatId,userId) {
         <div class="msg-bub">${msg.text}</div>
         <div class="msg-time">${time}</div>
       </div>`;
-      // If this is an echo of our own optimistic bubble, replace it instead of appending
+      // Replace the optimistic "Sending..." bubble if this is our own echoed message
       const tempBubble=msg.tempId?document.getElementById(msg.tempId):null;
       if(tempBubble){
         tempBubble.outerHTML=newBubble;
