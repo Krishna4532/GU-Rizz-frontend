@@ -152,8 +152,50 @@ body::after{
   font-family:'Outfit',sans-serif;font-size:14px;
   outline:none;transition:var(--transition);appearance:none;
 }
-/* reuse .fg input styling inside edit cards */
-.about-card .fg input,.about-card .fg select,.about-card .fg textarea{
+/* ── Google Auth Button ───────────────────────────────── */
+.google-auth-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  min-height: 48px;
+  background: #fff;
+  color: #1f1f1f;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 1rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+.google-auth-btn:hover  { background: #f0f0f0; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+.google-auth-btn:active { transform: scale(0.98); }
+
+/* ── Auth divider "or" line ──────────────────────────── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  color: var(--text3);
+  font-size: 12px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+
   width:100%;background:var(--bg4);border:1px solid var(--border);border-radius:10px;
   padding:10px 12px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;
   outline:none;transition:var(--transition);appearance:none;margin-top:4px;
@@ -1353,6 +1395,12 @@ html, body {
 
     <!-- Login Form -->
     <div id="login-form">
+      <!-- Google Sign In -->
+      <button class="google-auth-btn" onclick="signInWithGoogle()" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink:0;"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider"><span>or login with email</span></div>
       <div class="fg"><label>Username / Email</label><input id="li-u" type="text" placeholder="your_username" autocomplete="username" /></div>
       <div class="fg"><label>Password</label><input id="li-p" type="password" placeholder="••••••••" autocomplete="current-password" /></div>
       <button class="btn-primary" onclick="doLogin()" id="login-btn">Login to GU‑Rizz ⚡</button>
@@ -1361,98 +1409,28 @@ html, body {
       </p>
     </div>
 
-    <!-- Signup Form -->
+    <!-- Signup Form — fast 4-field + Google -->
     <div id="signup-form" style="display:none;">
+
+      <!-- Google Sign Up -->
+      <button class="google-auth-btn" onclick="signInWithGoogle()" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink:0;"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider"><span>or sign up with email</span></div>
+
       <div class="fg-grid">
-        <div class="fg"><label>Full Name <span style="color:var(--cr)">*</span></label><input id="su-name" type="text" placeholder="Arjun Sharma" /></div>
+        <div class="fg"><label>Full Name <span style="color:var(--cr)">*</span></label><input id="su-name" type="text" placeholder="Arjun Sharma" autocomplete="name" /></div>
         <div class="fg"><label>Username <span style="color:var(--cr)">*</span></label><input id="su-user" type="text" placeholder="arjun_gu" autocomplete="username" /></div>
       </div>
-      <div class="fg">
-        <label>Personal Email <span style="color:var(--cr)">*</span></label>
-        <input id="su-email" type="email" placeholder="you@gmail.com" />
-      </div>
-      <div class="fg">
-        <label>Phone Number <span style="color:var(--cr)">*</span></label>
-        <input id="su-phone" type="tel" placeholder="+91 9876543210" />
-      </div>
-      <div class="fg">
-        <label>GU Institutional Email <span style="color:var(--text3);font-size:10px;">(optional)</span></label>
-        <input id="su-guemail" type="email" placeholder="you@galgotiasuniversity.edu.in" oninput="validateGuEmail(this)" />
-        <div class="gu-email-hint" id="gu-email-hint">Only @galgotiasuniversity.edu.in or @galgotias.edu.in</div>
-      </div>
-      <div class="fg-grid">
-        <div class="fg"><label>Age <span style="color:var(--cr)">*</span></label><input id="su-age" type="number" placeholder="20" min="16" max="60" /></div>
-        <div class="fg"><label>Height (cm) <span style="color:var(--cr)">*</span></label><input id="su-ht" type="number" placeholder="175" min="100" max="250" /></div>
-      </div>
-      <div class="fg-grid">
-        <div class="fg"><label>Gender <span style="color:var(--cr)">*</span></label>
-          <select id="su-gender">
-            <option value="">Select</option>
-            <option>Male</option><option>Female</option>
-            <option>Non-binary</option><option>Other</option>
-            <option>Prefer not to say</option>
-          </select>
-        </div>
-        <div class="fg"><label>Nature <span style="color:var(--cr)">*</span></label>
-          <select id="su-nature">
-            <option value="">Select</option>
-            <option>Introvert</option><option>Extrovert</option><option>Ambivert</option>
-          </select>
-        </div>
-      </div>
-      <div class="fg"><label>Social Preference <span style="color:var(--cr)">*</span></label>
-        <select id="su-social">
-          <option value="">Select</option>
-          <option value="Likes crowd">Likes crowd (Extrovert activities)</option>
-          <option value="Likes being alone">Likes being alone (Introvert activities)</option>
-          <option value="Balanced">Balanced (Mix of both)</option>
-        </select>
-      </div>
-      <div class="fg-grid">
-        <div class="fg"><label>Course <span style="color:var(--cr)">*</span></label>
-          <select id="su-course">
-            <option value="">Select</option>
-            <option>B.Tech CSE</option><option>B.Tech ECE</option><option>B.Tech ME</option>
-            <option>B.Tech Civil</option><option>BCA</option><option>MCA</option>
-            <option>MBA</option><option>B.Sc</option><option>B.Com</option><option>BBA</option>
-          </select>
-        </div>
-        <div class="fg"><label>Year <span style="color:var(--cr)">*</span></label>
-          <select id="su-year">
-            <option value="">Select</option>
-            <option>1st Year</option><option>2nd Year</option><option>3rd Year</option>
-            <option>4th Year</option><option>PG 1st</option><option>PG 2nd</option>
-          </select>
-        </div>
-      </div>
-      <div class="fg-grid">
-        <div class="fg"><label>Music Preference</label>
-          <select id="su-music">
-            <option value="">Select</option>
-            <option>Bollywood</option><option>Hip-Hop / Rap</option><option>Rock / Metal</option>
-            <option>EDM / Electronic</option><option>Classical</option><option>Indie / Lo-fi</option>
-            <option>Pop</option><option>Punjabi</option><option>Everything</option>
-          </select>
-        </div>
-        <div class="fg"><label>Date of Birth</label><input id="su-dob" type="date" /></div>
-      </div>
-      <div class="fg">
-        <label>Hobbies <span style="color:var(--cr)">*</span></label>
-        <div class="chips" id="su-hobbies-chips" style="margin-top:4px;">
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Reading 📚</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Gaming 🎮</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Music 🎵</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Sports 🏃</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Art 🎨</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Coding 💻</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Cooking 🍳</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Travel ✈️</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Photography 📸</div>
-          <div class="chip" onclick="toggleSignupChip(this,'hobby')">Dance 💃</div>
-        </div>
-      </div>
+      <div class="fg"><label>Email <span style="color:var(--cr)">*</span></label><input id="su-email" type="email" placeholder="you@gmail.com" autocomplete="email" /></div>
       <div class="fg"><label>Password <span style="color:var(--cr)">*</span></label><input id="su-pass" type="password" placeholder="Min 6 characters" autocomplete="new-password" /></div>
-      <button class="btn-primary" onclick="doSignup()" id="signup-btn">Create My Profile 🔥</button>
+
+      <button class="btn-primary" onclick="doSignup()" id="signup-btn">Create Account 🚀</button>
+      <p style="text-align:center;font-size:11px;color:var(--text3);margin-top:0.8rem;line-height:1.5;">
+        Complete your profile (course, age, hobbies) from <strong style="color:var(--text2);">Profile → Edit</strong> after signing up.
+      </p>
     </div>
   </div>
 </div>
@@ -2156,6 +2134,60 @@ function validateGuEmail(input) {
 // ════════════════════════════════════════════
 //  AUTH
 // ════════════════════════════════════════════
+// ── Google OAuth ──────────────────────────────────────────
+// Uses Google Identity Services (accounts.google.com/gsi)
+// Replace YOUR_GOOGLE_CLIENT_ID with your actual OAuth Client ID from
+// console.cloud.google.com → APIs & Services → Credentials
+
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+
+function signInWithGoogle() {
+  if (typeof google === 'undefined' || !google.accounts) {
+    showToast('Google Sign-In loading... try again in a moment','info');
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback:  handleGoogleCredential,
+    auto_select: false,
+    cancel_on_tap_outside: true,
+  });
+  google.accounts.id.prompt((notification) => {
+    // If One Tap is suppressed (e.g. user dismissed it), open the full popup
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      google.accounts.id.renderButton(
+        document.getElementById('g-btn-container'),
+        { theme: 'outline', size: 'large', width: 300 }
+      );
+    }
+  });
+}
+
+async function handleGoogleCredential(response) {
+  // response.credential is a JWT ID token from Google
+  if (!response.credential) { showToast('Google sign-in cancelled','info'); return; }
+
+  const btn = document.getElementById('login-btn') || document.getElementById('signup-btn');
+  if (btn) { btn.disabled=true; btn.textContent='Signing in with Google...'; }
+
+  try {
+    if (!window.API) throw new Error('API not loaded');
+    // Send the Google ID token to your backend
+    const res = await window.API.Auth.googleLogin(response.credential);
+    if (res.data.accessToken) window.API.Auth.storeToken(res.data.accessToken);
+    bootUser(res.data.user, res.data.requiresVibeProfile);
+    if (res.data.isNewUser) {
+      showToast('Welcome to GU-Rizz! 🔥 Complete your profile in About section.','success');
+    } else {
+      showToast('Welcome back! 🔥','success');
+    }
+  } catch(err) {
+    showToast(err.message || 'Google sign-in failed','error');
+  } finally {
+    if (btn) { btn.disabled=false; btn.textContent=btn.id==='login-btn'?'Login to GU‑Rizz ⚡':'Create Account 🚀'; }
+  }
+}
+
 function authTab(tab, btn) {
   document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
@@ -2197,71 +2229,38 @@ async function doLogin() {
 }
 
 async function doSignup() {
-  const name    = document.getElementById('su-name').value.trim();
-  const username= document.getElementById('su-user').value.trim();
-  const email   = document.getElementById('su-email').value.trim();
-  const phone   = document.getElementById('su-phone').value.trim();
-  const guEmail = document.getElementById('su-guemail')?.value.trim() || '';
-  const age     = document.getElementById('su-age').value;
-  const ht      = document.getElementById('su-ht').value;
-  const gender  = document.getElementById('su-gender').value;
-  const nature  = document.getElementById('su-nature').value;
-  const social  = document.getElementById('su-social').value;
-  const course  = document.getElementById('su-course').value;
-  const year    = document.getElementById('su-year').value;
-  const music   = document.getElementById('su-music').value || '';
-  const dob     = document.getElementById('su-dob').value;
-  const pass    = document.getElementById('su-pass').value;
-  const hobbies = [...document.querySelectorAll('#su-hobbies-chips .chip.on')]
-    .map(c => c.textContent.trim().replace(/\s*[\u{1F300}-\u{1FAFF}]/gu,'').trim());
+  const name  = document.getElementById('su-name').value.trim();
+  const username = document.getElementById('su-user').value.trim();
+  const email = document.getElementById('su-email').value.trim();
+  const pass  = document.getElementById('su-pass').value;
 
-  // ── Mandatory field validation ──
-  if (!name||!username||!email||!phone||!age||!ht||!gender||!nature||!social||!course||!year||!pass) {
-    showToast('Please fill all required (*) fields','error'); return;
-  }
-  if (hobbies.length === 0) { showToast('Select at least one hobby ✨','error'); return; }
+  if (!name)     { showToast('Enter your full name','error');    document.getElementById('su-name').focus();  return; }
+  if (!username) { showToast('Choose a username','error');       document.getElementById('su-user').focus();  return; }
+  if (!email)    { showToast('Enter your email','error');        document.getElementById('su-email').focus(); return; }
+  if (!pass)     { showToast('Choose a password','error');       document.getElementById('su-pass').focus();  return; }
   if (pass.length < 6) { showToast('Password must be at least 6 characters','error'); return; }
 
-  // ── GU email optional, but validated if provided ──
-  if (guEmail && !GU_EMAIL_REGEX.test(guEmail)) {
-    showToast('Invalid GU institutional email format 🎓','error');
-    document.getElementById('su-guemail').focus(); return;
-  }
-
   const btn = document.getElementById('signup-btn');
-  btn.disabled=true; btn.textContent='Creating account...';
+  btn.disabled=true; btn.innerHTML='<span style="display:inline-flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;"></span>Creating account…</span>';
+
   try {
     if (window.API) {
-      const payload = {
-        name, username,
+      const res = await window.API.Auth.signup({
+        name,
+        username,
         personalEmail: email,
-        phoneNumber:   phone,
-        password:      pass,
-        gender,
-        nature,
-        socialPreference: social,
-        hobbies,
-        course, year, music, dob,
-        age: +age, height: +ht,
-      };
-      if (guEmail) payload.guEmail = guEmail;
-      const res = await window.API.Auth.signup(payload);
+        password: pass,
+      });
       if (res.data.accessToken) window.API.Auth.storeToken(res.data.accessToken);
-      if (res.data.requiresVibeProfile) {
-        await window.API.Auth.completeVibeProfile({
-          age, height: ht, course, year, music, nature,
-          socialPreference: social, hobbies, dob, gender,
-        });
-      }
       bootUser(res.data.user, false);
-      showToast('Welcome to GU-Rizz, '+name.split(' ')[0]+'! 🔥','success');
+      showToast('Welcome to GU-Rizz, '+name.split(' ')[0]+'! 🔥 Complete your profile in About section.','success');
       return;
     }
     showToast('API not loaded','error');
   } catch(err) {
     showToast(err.message||'Signup failed','error');
   } finally {
-    btn.disabled=false; btn.textContent='Create My Profile 🔥';
+    btn.disabled=false; btn.textContent='Create Account 🚀';
   }
 }
 
@@ -3004,18 +3003,9 @@ function openChat(chatId,userId) {
   // Bind real-time socket messages for this chat
   if(window.SOCKET&&window.SOCKET.get()){
     const s=window.SOCKET.get();
-    // FIX 2: Join the socket room so backend io.to('chat:chatId') can reach us.
-    // The backend only delivers to sockets that have called socket.join('chat:<id>').
-    // Without this, io.to(`chat:${chatId}`) delivers to nobody and the echo is lost.
-    s.emit('chat:join', chatId);
-
     s.off('chat:message');
     s.on('chat:message',msg=>{
-      // FIX 1: Use String() coercion on both sides.
-      // msg.chatId arrives from the backend as a Mongoose ObjectId (not a plain string).
-      // Strict !== between an ObjectId and a string is always true even when they
-      // represent the same value, so without String() every message was silently dropped.
-      if(String(msg.chatId)!==String(chatId))return;
+      if(msg.chatId!==chatId)return;
       const container=document.getElementById('chat-msgs-'+chatId);if(!container)return;
       const isMe=String(msg.senderId?._id||msg.senderId)===String(S.user?._id);
       const sender=isMe?S.user:other;
@@ -3026,7 +3016,7 @@ function openChat(chatId,userId) {
         <div class="msg-bub">${msg.text}</div>
         <div class="msg-time">${time}</div>
       </div>`;
-      // Replace the optimistic "Sending..." bubble if this is our own echoed message
+      // If this is an echo of our own optimistic bubble, replace it instead of appending
       const tempBubble=msg.tempId?document.getElementById(msg.tempId):null;
       if(tempBubble){
         tempBubble.outerHTML=newBubble;
@@ -3990,6 +3980,12 @@ window.addEventListener('load',()=>{
   setInterval(updateLiveCount,30000);
 });
 </script>
+
+<!-- ── Google Identity Services (for Google Sign-In) ── -->
+<!-- Loads asynchronously — does not block page render -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<!-- Hidden container used as fallback if One Tap is suppressed -->
+<div id="g-btn-container" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;"></div>
 
 <!-- ── API Client (exposes window.API) ── -->
 <script type="module" src="/src/js/api.js"></script>
